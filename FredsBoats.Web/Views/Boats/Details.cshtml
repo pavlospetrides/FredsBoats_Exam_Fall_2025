@@ -26,4 +26,42 @@
 
 <hr />
 <h3>User Comments</h3>
+
+@if(Model.Comments != null && Model.Comments.Any())
+{
+    <ul class= "list-group mb-4">
+    @foreach(var comment in Model.Comments)
+    {
+        <li>
+            <strong>@comment.Author</strong> (@comment.CreatedAt.ToString("g")):<br />
+            <span class="text-muted" style="font-size:small;">(@comment.CreatedAt.ToShortDateString())</span>
+            <br>
+            @comment.Content
+        </li>
+    }
+    </ul>
+}
+else
+{
+    <p class="card p-3 bg-light">No comments yet. Be the first to comment!</p>"
+
+}
+<div class="card p-3 bg-light">
+    <h4>Add a Comment</h4>
+    <form asp-action="AddComment" method="post">
+        <input type="hidden" name="BoatId" value="@Model.BoatId" />
+        <div class="mb-3">
+            <label for="Author" class="form-label">your name</label>
+            <input type="text" class="form-control" name="Author" required />
+       </div>
+     
+
+       <div class="mb-3">
+            <label for="Content" class="form-label">Comment</label>
+            <textarea class="form-control" name="Content" rows="3" required></textarea>
+            </div>
+        <button type="submit" class="btn btn-primary">Submit Comment</button>
+    </form>
+</div>
+
 <p><em>No comments yet.</em></p>
